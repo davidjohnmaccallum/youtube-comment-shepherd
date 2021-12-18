@@ -1,6 +1,5 @@
 require('dotenv').config()
 const express = require('express')
-const connectLiveReload = require("connect-livereload");
 const YouTubeService = require("./services/youtube")
 const handlebars = require("hbs")
 const moment = require("moment")
@@ -47,8 +46,8 @@ handlebars.registerHelper('numberformat', (number) => new Intl.NumberFormat().fo
 //     liveReloadServer.refresh("/");
 //   }, 100);
 // });
-
-app.use(connectLiveReload());
+// const connectLiveReload = require("connect-livereload");
+// app.use(connectLiveReload());
 
 app.get('/', async (req, res) => {
   try {
