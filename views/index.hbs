@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comment Shepherd: {{this.snippet.topLevelComment.snippet.textDisplay}}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="p-2">
+  <h1 class="text-2xl">
+    {{ channel.items.[0].snippet.title }}
+  </h1>
+  <div>
+    {{#each comments.items}}
+      <!-- Comment -->
+      <div class="py-2 flex">        
+        <!-- Avatar -->
+        <div class="w-10 mr-2 flex-none">
+          <img class="rounded-full" src="{{this.snippet.topLevelComment.snippet.authorProfileImageUrl}}"/>
+        </div>
+        <!-- Content -->
+        <div class="grow">
+          <!-- Message -->
+          <div class="pb-2">
+            {{{this.snippet.topLevelComment.snippet.textDisplay}}}
+          </div>
+          <!-- Author, Date -->
+          <div class="flex justify-between">
+            <a class="text-slate-500 text-sm" href="{{this.snippet.topLevelComment.snippet.authorChannelUrl}}">
+              {{this.snippet.topLevelComment.snippet.authorDisplayName}}
+            </a>
+            <div class="text-slate-500 text-sm">{{ago this.snippet.topLevelComment.snippet.updatedAt}}</div>
+          </div>
+          <!-- Video -->
+          <div class="flex justify-between pb-1">
+            <a class="text-slate-500 text-sm" href="https://www.youtube.com/watch?v={{this.video.items.[0].id}}" target="_blank">
+              {{this.video.items.[0].snippet.title}}
+            </a>
+            <div class="text-slate-500 text-sm">
+              {{numberformat this.video.items.[0].statistics.viewCount}} views
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Replies -->
+      <div class="ml-10 pl-2 border-slate-500 border-l-2">
+        {{#each this.replies.comments}}
+          <!-- Comment -->
+          <div class="py-2 flex">        
+            <!-- Avatar -->
+            <div class="w-10 mr-2 flex-none">
+              <img class="rounded-full" src="{{this.snippet.authorProfileImageUrl}}"/>
+            </div>
+            <!-- Content -->
+            <div class="grow">
+              <!-- Message -->
+              <div class="pb-2">
+                {{{this.snippet.textDisplay}}}
+              </div>
+              <!-- Author, Date -->
+              <div class="flex justify-between">
+                <a class="text-slate-500 text-sm" href="/person/{{this.snippet.authorChannelId.value}}">
+                  {{this.snippet.authorDisplayName}}
+                </a>
+                <div class="text-slate-500 text-sm">{{ago this.snippet.updatedAt}}</div>
+              </div>
+            </div>
+          </div>
+        {{/each}}
+      </div>
+    {{/each}}
+  </div>
+</body>
+</html>
